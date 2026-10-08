@@ -162,14 +162,38 @@ body::after {
 @media (max-width: 860px) {
   .layout {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     grid-template-areas:
       'haiku'
       'hint';
-    padding-bottom: 64px;
+    padding: 24px 20px 96px;
+    gap: 28px;
   }
 
   .haiku {
-    min-height: 52vh;
+    min-height: auto;
+    justify-content: flex-start;
+    padding-top: 2vh;
+    gap: 26px;
+  }
+
+  .line {
+    font-size: 34px;
+  }
+
+  .count {
+    font-size: 20px;
+    min-width: 1.5em;
+  }
+
+  .hint {
+    font-size: 14px;
+    padding: 16px 18px;
+  }
+
+  .copy {
+    font-size: 17px;
+    padding: 9px 24px;
   }
 }
 
