@@ -102,6 +102,7 @@ export default function App() {
                 ref={inputsRef[i]}
                 className="line"
                 type="text"
+                size={1}
                 value={line}
                 onChange={(e) => setLine(i, e.target.value)}
                 onKeyDown={handleKeyDown(i)}
