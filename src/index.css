@@ -1,0 +1,227 @@
+@font-face {
+  font-family: 'Sangha';
+  src: url('./assets/Sangha.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: #f5f5f5;
+  font-family: 'Sangha', ui-sans-serif, system-ui, sans-serif;
+  background-color: #05060a;
+  /* тёмный фон в японском стиле: багровое солнце, дымка, горы, чернильное небо */
+  background-image:
+    radial-gradient(560px 560px at 82% 10%, rgba(255, 99, 132, 0.16), rgba(255, 99, 132, 0.05) 45%, transparent 68%),
+    radial-gradient(1200px 420px at 50% 108%, rgba(96, 108, 172, 0.14), transparent 70%),
+    radial-gradient(150% 92% at 18% 112%, #0c0f18 0 46%, transparent 46.8%),
+    radial-gradient(170% 105% at 82% 116%, #090b11 0 52%, transparent 52.8%),
+    radial-gradient(140% 140% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.5) 100%),
+    linear-gradient(180deg, #0d1020 0%, #080a12 48%, #04050a 100%);
+  background-attachment: fixed;
+}
+
+/* круглое багровое «солнце» (хиномару) */
+body::before {
+  content: '';
+  position: fixed;
+  z-index: 0;
+  top: -110px;
+  right: 8vw;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 38% 36%,
+    rgba(255, 118, 150, 0.32),
+    rgba(214, 51, 89, 0.18) 52%,
+    rgba(214, 51, 89, 0.07) 66%,
+    transparent 72%
+  );
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+/* узор асаноха (звёздная решётка) и лёгкое зерно поверх */
+body::after {
+  content: '';
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(-60deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 44px);
+  pointer-events: none;
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 340px);
+  grid-template-rows: 1fr;
+  grid-template-areas: 'haiku hint';
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 56px;
+  gap: 24px;
+}
+
+.haiku {
+  grid-area: haiku;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 34px;
+}
+
+.hint {
+  grid-area: hint;
+  align-self: center;
+  background: rgba(10, 12, 18, 0.72);
+  border: 1px solid #262626;
+  border-radius: 14px;
+  padding: 20px 22px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #c9c9c9;
+  backdrop-filter: blur(4px);
+}
+
+.hint__title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: normal;
+  color: #f5f5f5;
+}
+
+.hint__list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.hint__list li + li {
+  margin-top: 6px;
+}
+
+.hint b {
+  color: #fff;
+}
+
+.demo {
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.demo--pink {
+  color: #ff6ea9;
+}
+
+.demo--white {
+  color: #fff;
+}
+
+.hint kbd {
+  font-family: inherit;
+  padding: 0 5px;
+  border: 1px solid #3a3a3a;
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  color: #fff;
+}
+
+/* подпись всегда закреплена у нижнего края экрана, на любом размере окна */
+.credit {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  text-align: center;
+  font-size: 13px;
+  color: #8a8a8a;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  pointer-events: none;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'haiku'
+      'hint';
+    padding-bottom: 64px;
+  }
+
+  .haiku {
+    min-height: 52vh;
+  }
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.count {
+  min-width: 1.6em;
+  text-align: right;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #ff6ea9; /* числа розовые */
+  user-select: none;
+}
+
+.count--hit {
+  color: #ffffff; /* цель достигнута — число белое */
+}
+
+.line {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  font-size: 44px;
+  line-height: 1.25;
+  padding: 0;
+  caret-color: #ff6ea9;
+}
+
+.line::placeholder {
+  color: #555;
+}
+
+.copy {
+  align-self: center;
+  margin-top: 8px;
+  padding: 10px 28px;
+  font: inherit;
+  font-size: 20px;
+  color: #000;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: #fff;
+}
