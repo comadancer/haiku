@@ -218,6 +218,7 @@ body::after {
 
 .line {
   flex: 1;
+  min-width: 0; /* позволяет строке сжиматься на узких экранах */
   background: transparent;
   border: none;
   outline: none;
